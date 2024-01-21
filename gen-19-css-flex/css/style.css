@@ -1,0 +1,222 @@
+@font-face {
+    font-family: Merriweather;
+    src: url(../fonts/Merriweather/Merriweather-Regular.ttf);
+}
+
+@font-face {
+    font-family: MerriweatherBold;
+    src: url(../fonts/Merriweather/Merriweather-Bold.ttf);
+}
+
+body{
+    font-family: Merriweather;
+    padding: 15px 15px;
+    background-color: #EDEDED;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+footer{
+    padding: 20px 100px;
+    width: 90%;
+    text-align: center;
+    position: relative;
+    color: black;
+    font-size: 14px;
+}
+
+h1{
+    color: aliceblue;
+}
+
+a{
+    text-decoration: none;
+    transition: 500ms;
+}
+.topnav a:hover{
+    font-size: 36px;
+}
+
+table{
+    width: 100%;
+}
+
+td{
+    padding: 1%;
+}
+
+td > img {
+    display: flexbox;
+    border-radius: 12px;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+img + div{
+    padding: 10px;
+}
+
+.produk{
+    display: flex;
+    flex-wrap: wrap;
+    
+}
+
+.setproduk{
+    flex: 1 27%;
+    padding: 10px;
+    perspective: 100px;
+}
+
+.setproduk img{
+    max-width: 100%;
+    border-radius: 20px;
+    transition: 500ms;
+}
+.setproduk img:hover{
+    transform: translateZ(5px);
+}
+.topnav{
+    width: 100%;
+    text-align: center;
+    position: relative;
+    color: #f2f2f2;
+    padding: 72px 72px 72px 72px;
+    font-size: 28px;
+}
+.topnav a{
+    color: #f2f2f2;
+}
+.mw{
+    font-family: MerriweatherBold;
+    margin-top: 300px;
+    color: #f2f2f2;
+    font-size: 100px;
+    text-align: center;
+}
+.mw_under{
+    color: #f2f2f2;
+    padding-top: 20px;
+    font-size: 30px;
+    text-align: center;
+    perspective: 100px;
+}
+.listproduk{
+    margin-top: 25%;
+    text-align: center;
+    position: center;
+    perspective: 100px;
+}
+.buyNow {
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: center;
+    min-width: 160px;
+    padding: 17px 48px;
+    border-radius: 100px;
+    color: black;
+    background-color:#f2f2f2;
+    transition: 500ms;
+    
+}
+.buyNow:hover{
+    transform: translateZ(10px);
+    color: #f2f2f2;
+    background-color: black;
+}
+.kirim {
+    display: inline-block;
+    cursor: pointer;
+    font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    min-height: 40px;
+    width: 90px;
+    text-align: center;
+    padding: 1px;
+    color: #f2f2f2;
+    background-color: black;
+    height: fit-content;
+}
+
+.text1{
+    padding: 25px;
+    font-size: 48px;
+}
+
+.produk{
+    font-size: 32px;
+}
+
+.details{
+    margin-top: 10%;
+}
+
+.tabel_details{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    font-family: MerriweatherBold;
+}
+
+.details_diskon{
+    width: 65%;
+    word-wrap: break-word;
+}
+
+.details_diskon_diskon{
+    font-size: 48px;
+}
+
+.webinfo{
+    width: fit-content;
+}
+.webinfo>a{
+    font-size: 14px;
+    color: #999898;
+}
+.webinfo>a:hover{
+    color: black;
+}
+
+.policy{
+    text-align: right;
+}
+
+footer a{
+    color: black;
+}
+
+#dekor{
+    width: 25%;
+    text-align: left;
+}
+
+#login{
+    width: 25%;
+    text-align: right;
+}
+
+#pic1{
+    position:absolute;
+    z-index: -1;
+}
+
+#menu{
+    margin-right: 20px;
+}
+
+#find{
+    margin-left: 260px;
+}
+
+#inputemail{
+    border-radius: 25px;
+    border: 2px solid black;
+    padding-left: 10px;
+    width: 200px;
+    height: 30px;
+}
