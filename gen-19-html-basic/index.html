@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
 
-    <style>
+    <!-- <style>
         body{
             width: 675px;
             margin: auto;
@@ -23,106 +23,123 @@
             font-size: 24px;
         }
         img{
-            display: block;
             margin-left: auto;
             margin-right: auto;
         }
         a{
             color: black;
         }
-    </style>
+    </style> -->
 </head>
 <body>
-    <h1><a href="https://medium.com/@fareedkhandev/understanding-transformers-a-step-by-step-math-example-part-1-a7809015150a" >source</a></h1>
+    
+    <h1><a href="https://medium.com/@fareedkhandev/understanding-transformers-a-step-by-step-math-example-part-1-a7809015150a" target="_blank">medium.com/@fareedkhandev</a></h1>
     <h1>Understanding Transformers: A Step-by-Step Math Example — Part 1</h1>
-    <img src="images/cat1.jpg" alt="" width="100%">
-    <p>I understand that the transformer architecture may seem scary, and you might have encountered various explanations on YouTube or in blogs. However, in my blog, I will make an effort to clarify it by providing a comprehensive numerical example. By doing so, I hope to simplify the understanding of the transformer architecture.</p>
+    <section>
+        <img src="images/cat1.jpg" alt="cat1.jpg" width="400" height="400">
+        <p>I understand that the transformer architecture may seem scary, and you might have encountered various explanations on YouTube or in blogs. However, in my blog, I will make an effort to clarify it by providing a comprehensive numerical example. By doing so, I hope to simplify the understanding of the transformer architecture.</p>
 
-    <p>Shoutout to <a href="https://www.youtube.com/@HeduMathematicsofIntelligence">HeduAI</a> for providing clear explanations that have helped clarify my own concepts!</p>
+        <p>Shoutout to <a href="https://www.youtube.com/@HeduMathematicsofIntelligence" target="_blank">HeduAI</a> for providing clear explanations that have helped clarify my own concepts!</p>
+    </section>
 
-    <h2>This blog is incomplete, here is the complete version of it:</h2>
+    <section>
+        <h2>This blog is incomplete, here is the complete version of it:</h2>
+        <p>Let's get Started!</p>
+        <p>...</p>
+    </section>
 
-    <p>Let's get Started!</p>
-    <p>...</p>
+    <section>
+        <h2>Inputs and Positional Encoding</h2>
+        <p>Let’s solve the initial part where we will determine our inputs and calculate positional encoding for them.</p>
+        <img src="images/input1.jpg" alt="input1.jpg" width="40%">
+    </section>
+    
+    <section>
+        <h2>Step 1 (Defining the data)</h2>
+        <p>The initial step is to define our dataset (corpus).</p>
+        <img src="images/dataset.jpg" alt="dataset.jpg" width="40%">
+        <p>In our dataset, there are <strong>3 sentences (dialogues)</strong> taken from the <strong>Game of Thrones</strong> TV show. Although this dataset may seem small, its size actually helps us in finding the results using the upcoming mathematical equations.</p>
+    </section>
+    
+    <section>
+        <h2>Step 2 (Finding the Vocab Size)</h2>
+        <p>To determine the vocabulary size, we need to identify the total number of unique words in our dataset. This is crucial for encoding (i.e., converting the data into numbers).</p>
+        <img src="images/vocabsize.jpg" alt="vocabsize.jpg">
+        <p>where N is a list of all words, and each word is a single token, We will break our dataset into a list of tokens, i.e., finding N.</p>
+        <img src="images/daatasetN.jpg" alt="" width="40%">
+        <p>After obtaining the list of tokens, denoted as N, we can apply a formula to calculate the vocabulary size.</p>
+        <img src="images/vocabset.jpg" alt="" width="40%">
+        <p>using a <strong>set</strong> operation helps remove duplicates, and then we can <strong>count</strong> the unique words to determine the vocabulary size. Therefore, the vocabulary size is 23, as there are 23 unique words in the given list.</p>
+    </section>
+    
+    <section>
+        <h2>Step 3 (Encoding and Embedding)</h2>
+        <p>We well assign an integer to each unique word of our dataset.</p>
+        <img src="images/step3.webp" alt="" width="40%">
+        <p>After encoding our entire dataset, it’s time to select our input. We will choose a sentence from our corpus to start with: <br> <strong>"When you play game of thrones"</strong></p>
+        
+        <img src="images/got.webp" alt="" width="40%">
+        <p>Each word passed as input will be represented as an encoded integer, and each corresponding integer value will have an associated embedding attached to it.</p>
+        <img src="images/step512.webp" alt="" width="40%">
+        <ul>
+            <li>These embedding can be find using <strong><a href="https://code.google.com/archive/p/word2vec/">Google Word2vec</a> (vector representation of word)</strong>. In our numerical example we will suppose embedding vector for each word filled with random values between (0 and 1).</li>
+            <li>Moreover, the original paper use <strong>512</strong> dimension of embedding vector, we will consider a very small dimension i.e., <strong>5</strong> for numerical example.</li>
+        </ul>
+        <img src="images/input_embedding.webp" alt="" width="40%">
+        <p>Each word embedding is now represented by an embedding vector of dimension <Strong>5</Strong>, and the values are filled with random numbers using the Excel function <strong>RAND()</strong>.</p>
+    </section>
 
-    <h2>Inputs and Positional Encoding</h2>
-    <p>Let’s solve the initial part where we will determine our inputs and calculate positional encoding for them.</p>
-    <img src="images/input1.jpg" alt="" width="100%">
+    <section>
+        <h2>Step 4 (Positional Embedding)</h2>
+        <p>Let’s consider the first word, i.e., <strong>“When”</strong> and calculate the positional embedding vector for it.</p>
+        <p>There are two formulas for positional embedding:</p>
+        <img src="images/PE.webp" alt="">
+        <p>The <strong>POS</strong> value for the first word, <strong>“When”</strong> will be zero since it corresponds to the starting index of the sequence. Additionally, the value of i, whether it is even or odd, determines which formula to use for calculating the PE values. The dimension value represents the dimensionality of the embedding vectors, and in this case, it is 5.</p>
+        <img src="images/positional_embedding.webp" alt="" width="40%">
+        <p>Continuing the calculation of positional embeddings, we will assign a pos value of 1 for the next word, <strong>“you”</strong> and continue incrementing the pos value for each subsequent word in the sequence.</p>
+        <img src="images/positional_embedding_val.webp" alt="" width="40%">
+        <p>After finding the positional embedding, we can concatenate it with the original word embedding.</p>
+        <img src="images/concatinate.webp" alt="" width="40%">
+        <p>The resultant vector we obtain is the sum of e1+p1, e2+p2, e3+p3, and so on.</p>
+        <img src="images/resultant_vector.webp" alt="" width="40%">
+        <p>The output of the initial part of our transformer architecture serves as the input to the encoder.</p>
+        <p>...</p>
+    </section>
+    
+    <section>
+        <h2>Encoder</h2>
+        <p>In the encoder, we perform complex operations involving matrices of queries, keys, and values. These operations are crucial for transforming the input data and extracting meaningful representations.</p>
+        <img src="images/encoder.webp" alt="" width="40%">
+        <p>Inside the multi-head attention mechanism, a single attention layer consists of several key components. These components include:</p>
+        <img src="images/multi-head_attention_mechanism.webp" alt="" width="40%">
+        <p>Please note that the yellow box represents a single attention mechanism. What makes it multi-head attention is the presence of multiple yellow boxes. For the purposes of this numerical example, we will consider only one (i.e., single-head attention) as depicted in the above diagram.</p>
+    </section>
 
-    <h2>Step 1 (Defining the data)</h2>
-    <p>The initial step is to define our dataset (corpus).</p>
-    <img src="images/dataset.jpg" alt="" width="100%">
-    <p>In our dataset, there are <strong>3 sentences (dialogues)</strong> taken from the <strong>Game of Thrones</strong> TV show. Although this dataset may seem small, its size actually helps us in finding the results using the upcoming mathematical equations.</p>
-
-    <h2>Step 2 (Finding the Vocab Size)</h2>
-    <p>To determine the vocabulary size, we need to identify the total number of unique words in our dataset. This is crucial for encoding (i.e., converting the data into numbers).</p>
-    <img src="images/vocabsize.jpg" alt="">
-    <p>where N is a list of all words, and each word is a single token, We will break our dataset into a list of tokens, i.e., finding N.</p>
-    <img src="images/daatasetN.jpg" alt="" width="100%">
-    <p>After obtaining the list of tokens, denoted as N, we can apply a formula to calculate the vocabulary size.</p>
-    <img src="images/vocabset.jpg" alt="" width="100%">
-    <p>using a <strong>set</strong> operation helps remove duplicates, and then we can <strong>count</strong> the unique words to determine the vocabulary size. Therefore, the vocabulary size is 23, as there are 23 unique words in the given list.</p>
-
-    <h2>Step 3 (Encoding and Embedding)</h2>
-    <p>We well assign an integer to each unique word of our dataset.</p>
-    <img src="images/step3.webp" alt="" width="100%">
-    <p>After encoding our entire dataset, it’s time to select our input. We will choose a sentence from our corpus to start with:</p>
-    <strong>"When you play game of thrones"</strong>
-    <img src="images/got.webp" alt="" width="100%">
-    <p>Each word passed as input will be represented as an encoded integer, and each corresponding integer value will have an associated embedding attached to it.</p>
-    <img src="images/step512.webp" alt="" width="100%">
-    <ul>
-        <li>These embedding can be find using <strong><a href="https://code.google.com/archive/p/word2vec/">Google Word2vec</a> (vector representation of word)</strong>. In our numerical example we will suppose embedding vector for each word filled with random values between (0 and 1).</li>
-        <li>Moreover, the original paper use <strong>512</strong> dimension of embedding vector, we will consider a very small dimension i.e., <strong>5</strong> for numerical example.</li>
-    </ul>
-    <img src="images/input_embedding.webp" alt="" width="100%">
-    <p>Each word embedding is now represented by an embedding vector of dimension <Strong>5</Strong>, and the values are filled with random numbers using the Excel function <strong>RAND()</strong>.</p>
-
-    <h2>Step 4 (Positional Embedding)</h2>
-    <p>Let’s consider the first word, i.e., <strong>“When”</strong> and calculate the positional embedding vector for it.</p>
-    <p>There are two formulas for positional embedding:</p>
-    <img src="images/PE.webp" alt="">
-    <p>The <strong>POS</strong> value for the first word, <strong>“When”</strong> will be zero since it corresponds to the starting index of the sequence. Additionally, the value of i, whether it is even or odd, determines which formula to use for calculating the PE values. The dimension value represents the dimensionality of the embedding vectors, and in this case, it is 5.</p>
-    <img src="images/positional_embedding.webp" alt="" width="100%">
-    <p>Continuing the calculation of positional embeddings, we will assign a pos value of 1 for the next word, <strong>“you”</strong> and continue incrementing the pos value for each subsequent word in the sequence.</p>
-    <img src="images/positional_embedding_val.webp" alt="" width="100%">
-    <p>After finding the positional embedding, we can concatenate it with the original word embedding.</p>
-    <img src="images/concatinate.webp" alt="" width="100%">
-    <p>The resultant vector we obtain is the sum of e1+p1, e2+p2, e3+p3, and so on.</p>
-    <img src="images/resultant_vector.webp" alt="" width="100%">
-    <p>The output of the initial part of our transformer architecture serves as the input to the encoder.</p>
-    <p>...</p>
-
-    <h2>Encoder</h2>
-    <p>In the encoder, we perform complex operations involving matrices of queries, keys, and values. These operations are crucial for transforming the input data and extracting meaningful representations.</p>
-    <img src="images/encoder.webp" alt="" width="100%">
-    <p>Inside the multi-head attention mechanism, a single attention layer consists of several key components. These components include:</p>
-    <img src="images/multi-head_attention_mechanism.webp" alt="" width="100%">
-    <p>Please note that the yellow box represents a single attention mechanism. What makes it multi-head attention is the presence of multiple yellow boxes. For the purposes of this numerical example, we will consider only one (i.e., single-head attention) as depicted in the above diagram.</p>
-
-    <h2>Step 1 (Performing Single Head Attention)</h2>
-    <p>There are three inputs in attention layer:</p>
-    <ul>
-        <li>Query</li>
-        <li>Key</li>
-        <li>Value</li>
-    </ul>
-    <img src="images/diagram_query_key_value.webp" alt="" width="100%">
-    <p>In the diagram provided above, the three input matrices <strong>(pink matrices)</strong> represent the transposed output obtained from the previous step of adding the position embeddings to the word embedding matrix.</p>
-    <p>On the other hand, the linear weights matrices <strong>(yellow, blue and red)</strong> represent the weight used in the attention mechanism. These matrices can have any number of dimensions with respect to columns, but the number of rows must be the same as the number of columns in the input matrices for multiplication.</p>
-    <p>In our case, we will assume that the linear matrices (yellow, blue, and red) contain random weights. These weights are typically initialized randomly and then adjusted during the training process through techniques like backpropagation and gradient descent.</p>
-    <p>So let’s calculate (Query, Key and Value metrices):</p>
-    <img src="images/query_key_value_matrices.webp" alt="" width="100%">
-    <p>Once we have the <strong>query, key, and value</strong> matrices in the attention mechanism, we proceed with additional matrix multiplications.</p>
-    <img src="images/matrix_multiplications.webp" alt="" width="100%">
-    <p>Now we multiply the resultant matrix with value matrix that we computed earlier:</p>
-    <img src="images/computed_matricex.webp" alt="" width="100%">
-    <p>If we have multiple head attentions, each yielding a matrix of dimension (6x3), the next step involves concatenating these matrices together.</p>
-    <img src="images/comparing_value.webp" alt="" width="100%">
-    <p>In the next step, we will once again perform a linear transformation similar to the process used to obtain the query, key, and value matrices. This linear transformation is applied to the concatenated matrix obtained from the multiple head attentions.</p>
-    <img src="images/concatenated_matrix.webp" alt="" width="100%">
-    <p>As the blog is already becoming lengthy, in the next part, we will shift our focus to discussing the steps involved in the encoder architecture.</p>
-    <img src="images/next.webp" alt="" width="100%">
+    <section>
+        <h2>Step 1 (Performing Single Head Attention)</h2>
+        <p>There are three inputs in attention layer:</p>
+        <ul>
+            <li>Query</li>
+            <li>Key</li>
+            <li>Value</li>
+        </ul>
+        <img src="images/diagram_query_key_value.webp" alt="" width="40%">
+        <p>In the diagram provided above, the three input matrices <strong>(pink matrices)</strong> represent the transposed output obtained from the previous step of adding the position embeddings to the word embedding matrix.</p>
+        <p>On the other hand, the linear weights matrices <strong>(yellow, blue and red)</strong> represent the weight used in the attention mechanism. These matrices can have any number of dimensions with respect to columns, but the number of rows must be the same as the number of columns in the input matrices for multiplication.</p>
+        <p>In our case, we will assume that the linear matrices (yellow, blue, and red) contain random weights. These weights are typically initialized randomly and then adjusted during the training process through techniques like backpropagation and gradient descent.</p>
+        <p>So let’s calculate (Query, Key and Value metrices):</p>
+        <img src="images/query_key_value_matrices.webp" alt="" width="40%">
+        <p>Once we have the <strong>query, key, and value</strong> matrices in the attention mechanism, we proceed with additional matrix multiplications.</p>
+        <img src="images/matrix_multiplications.webp" alt="" width="40%">
+        <p>Now we multiply the resultant matrix with value matrix that we computed earlier:</p>
+        <img src="images/computed_matricex.webp" alt="" width="40%">
+        <p>If we have multiple head attentions, each yielding a matrix of dimension (6x3), the next step involves concatenating these matrices together.</p>
+        <img src="images/comparing_value.webp" alt="" width="40%">
+        <p>In the next step, we will once again perform a linear transformation similar to the process used to obtain the query, key, and value matrices. This linear transformation is applied to the concatenated matrix obtained from the multiple head attentions.</p>
+        <img src="images/concatenated_matrix.webp" alt="" width="40%">
+        <p>As the blog is already becoming lengthy, in the next part, we will shift our focus to discussing the steps involved in the encoder architecture.</p>
+        <img src="images/next.webp" alt="" width="40%">
+    </section>
     
     <h2>If you have any query feel free to ask me!</h2>
 
