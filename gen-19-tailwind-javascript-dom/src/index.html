@@ -1,0 +1,78 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aye</title>
+  <link href="output.css" rel="stylesheet">
+</head>
+<body class="container mx-auto my-10">
+  <div class="container mx-auto">
+    <div class="sm:flex justify-around ">
+      <div><a href="#" class="hover:text-red-500">Home</a></div>
+      <div><a href="#" class="hover:text-red-500">About</a></div>
+      <div><a href="#" class="hover:text-red-500">Product</a></div>
+      <div><a href="#" class="hover:text-red-500">Collection</a></div>
+      <div><a href="#" class="hover:text-red-500">Contact</a></div>
+    </div>
+    <hr>
+  </div>
+  
+  <section class="container sm:flex justify-around mt-10" id="produk">
+    <div class="sm:w-2/5 mx-1 hover:scale-105" id="mainPic">
+      <img src="images/produk/Jeslin Corner.jpg" alt="" class="rounded-md">
+    </div>
+
+    <div class="sm:w-1/5 mx-1">
+      <img src="images/produk/Jeslin-Sofa-Corner-1.jpg" alt="" class="max-h-22 my-1 rounded-md hover:scale-105" onclick="klik(0)">
+      <img src="images/produk/Jeslin-Sofa-Corner-2.jpg" alt="" class="max-h-22 my-1 rounded-md hover:scale-105" onclick="klik(1)">
+      <img src="images/produk/Jeslin-Sofa-Corner-3.jpg" alt="" class="max-h-22 my-1 rounded-md hover:scale-105" onclick="klik(2)">
+      <img src="images/produk/Jeslin-Sofa-Corner-4.jpg" alt="" class="max-h-22 my-1 rounded-md hover:scale-105" onclick="klik(3)">
+    </div>
+
+    <div class="text-left sm:w-2/5 mx-1">
+      <div>
+        <div class="text-6xl">
+          <div>Jeslin Sofa Corner</div>
+          <hr class="bg-red-100 border-s-black">
+        </div>
+
+        <div class="mt-10 mb-5 text-lg ">
+          <table class="table-auto">
+            <tr>
+              <td>Brand</td>
+              <td>:</td>
+              <td>Jeslin</td>
+            </tr>
+            <tr>
+              <td>Produk</td>
+              <td>:</td>
+              <td>Sofa Corner</td>
+            </tr>
+            <tr>
+              <td>Bahan</td>
+              <td>:</td>
+              <td>Cotton</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="text-xl">
+          Jeslin Sofa Corner ini merupakan produk limited edition <span class="text-xs">(kali)</span> dari produk Jeslin
+        </div>
+
+        <div class="text-5xl mt-5">
+          $900
+        </div>
+
+        <div class="flex justify-around mt-5">
+          <a href="#" class="text-xl py-1 px-5 bg-green-400 hover:bg-green-300">Masukkan ke Keranjang</a>
+          <a href="#" class="text-xl py-1 px-5 bg-blue-400 hover:bg-blue-300">Simpan ke Wistlist</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../js/script.js"></script>
+</body>
+</html>
