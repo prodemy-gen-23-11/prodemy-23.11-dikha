@@ -75,7 +75,8 @@ img + div{
     transition: 500ms;
 }
 .setproduk img:hover{
-    transform: translateZ(5px);
+    transform: scale(1.05,1.05);
+    border-radius: 20px;
 }
 .topnav{
     width: 100%;
