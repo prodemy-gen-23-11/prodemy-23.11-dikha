@@ -58,7 +58,7 @@ function Animal(nama, umur, kategori){
     this.kategori = kategori;
 }
 
-const kucing = new Animal("mpus", 16, "penyayang")
+const kucing = new Animal("mpus", 16, "karnivora")
 console.log(kucing);
 
 
@@ -66,7 +66,7 @@ const readline = require('readline').createInterface({
     input: process.stdin,
     output: process.stdout
 });
-readline.question(name => {
+readline.question('New Name?  ', name => {
     kucing.nama = name;
     console.log(kucing);
     readline.close();
