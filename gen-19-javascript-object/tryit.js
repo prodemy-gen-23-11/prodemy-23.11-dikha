@@ -1,18 +1,3 @@
-/* let person = {
-    nama : "aku",
-    age : 5,
-    mixBread : false,
-    characteristic : {
-        color : "brown",
-        eyecolor : "black"
-    }
-}
-
-console.log(person);
-console.log(person.nama);
-console.log(person['nama']);
-person.age = 7;
-console.log(person) */
 
 /* const dog = new Object();
 dog.name = "ulala";
@@ -35,8 +20,52 @@ console.log(hamster) */
         return this.namaDepan + " " + this.namaBelakang;
     }
 }
+console.log(person);
+console.log(person['namaDepan']);
+console.log(person.namaDepan);
+console.log(person.nama);
+person.age = 7;
+console.log(person)
+console.log(person.fullname())
+ */
 
-console.log(person.fullname()) */
+/* function Animal(nama, umur, kategori){
+    this.nama = nama;
+    this.umur = umur;
+    this.kategori = kategori;
+}
+function Tambahan(produk){
+    this.produk = produk;
+}
+
+let animal1 = new Animal("kucing", 12, "karnivora")
+const animal2 = new Animal("kambing", 16, "herbivora")
+const animal3 = new Animal("sapi", 14, "herbivora")
+
+let arrayKu = [animal1, animal2];
+arrayKu.push(animal3);
+console.log(arrayKu);
+
+animal1 = {...animal1, ...new Tambahan("daging")};
+console.log(animal1);
+
+let {nama, umur, kategori, produk} = animal1;
+console.log(nama, " ", umur, " ", kategori, " ",produk); */
+
+let catty = {
+    nama : "mpus",
+    kategori : "karnivora",
+    karakteristik : {
+        tinggi : 15,
+        panjang : 25,
+        berat : 3
+    }
+}
+/* const berat = catty?.karakteristik?.berat;
+console.log(berat);
+const jumlahKaki = catty?.karakteristik?.jumlahKaki;
+console.log(jumlahKaki); */
+
 
 /* const cat = {
     nama : "oyen"
@@ -49,10 +78,10 @@ ccat1.nama = "bleki"
 ccat2 = "iyaa"
 console.log(cat.nama)
 console.log(ccat1.nama)
-console.log(ccat2)
- */
+console.log(ccat2) */
 
-function Animal(nama, umur, kategori){
+
+/* function Animal(nama, umur, kategori){
     this.nama = nama;
     this.umur = umur;
     this.kategori = kategori;
@@ -70,7 +99,7 @@ readline.question('New Name?  ', name => {
     kucing.nama = name;
     console.log(kucing);
     readline.close();
-});
+}); */
 
 
 
