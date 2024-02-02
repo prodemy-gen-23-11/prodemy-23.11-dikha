@@ -105,17 +105,16 @@ function Animal(nama, umur, kategori){
 }
 const kucing = new Animal("kucing", 16, "karnivora")
 console.log(kucing);
-console.log()
 
 for (let property in kucing){
-    const pilihan = (getInputFromTerminal(`Ingin Merubah ${property}?(y/n):`).toLowerCase()=='y' ? true : false );
     console.log()
+    const pilihan = (getInputFromTerminal(`Ingin Merubah ${property}?(y/n):`).toLowerCase()=='y' ? true : false );
     if(pilihan){
         kucing[property] = getInputFromTerminal(`Masukkan Nilai Baru Untuk ${property}: `);
     }
 }
 
-console.log(kucing)
+console.log(kucing);
 
 
 
