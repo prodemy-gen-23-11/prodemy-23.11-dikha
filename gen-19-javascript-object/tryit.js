@@ -81,25 +81,41 @@ console.log(ccat1.nama)
 console.log(ccat2) */
 
 
-/* function Animal(nama, umur, kategori){
+/* const readline = require('readline').createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+readline.question('New Name?  ', input => {
+    myVal = input;
+    console.log(kucing);
+    readline.close();
+});
+ */
+
+
+function getInputFromTerminal(message){
+    const prompt = require('prompt-sync')({sigint:true});
+    return prompt(message);
+}
+
+function Animal(nama, umur, kategori){
     this.nama = nama;
     this.umur = umur;
     this.kategori = kategori;
 }
-
-const kucing = new Animal("mpus", 16, "karnivora")
+const kucing = new Animal("kucing", 16, "karnivora")
 console.log(kucing);
+console.log()
 
+for (let property in kucing){
+    const pilihan = (getInputFromTerminal(`Ingin Merubah ${property}?(y/n):`).toLowerCase()=='y' ? true : false );
+    console.log()
+    if(pilihan){
+        kucing[property] = getInputFromTerminal(`Masukkan Nilai Baru Untuk ${property}: `);
+    }
+}
 
-const readline = require('readline').createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-readline.question('New Name?  ', name => {
-    kucing.nama = name;
-    console.log(kucing);
-    readline.close();
-}); */
+console.log(kucing)
 
 
 
