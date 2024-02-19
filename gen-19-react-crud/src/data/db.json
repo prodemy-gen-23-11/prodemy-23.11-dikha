@@ -1,0 +1,48 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "nama": "Ladiva Sofa",
+      "harga": "1000",
+      "gambar": [
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/12/16/a7538182-ff09-4812-a7ba-61ff2e11d9fb.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/12/16/cf61ed7a-9c5c-4e30-81a5-8ff6fc8b4860.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/12/16/5647fc1b-12ce-4af8-b4b8-a64e95aeb21c.jpg"
+      ],
+      "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore modi, consequatur vero sit porro, repudiandae beatae provident fugiat facilis est nobis impedit obcaecati natus itaque error blanditiis dolore animi corporis."
+    },
+    {
+      "id": "2",
+      "nama": "Livia Sofa",
+      "harga": "900",
+      "gambar": [
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/11/4/67e47ebd-d0cd-4191-99cd-73e9a28cf380.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/2/19/f489b112-3b86-4d3f-8710-000cec9b5359.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2022/2/19/3818e1a3-60e7-415d-b052-88e9117494a2.jpg"
+      ],
+      "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore modi, consequatur vero sit porro, repudiandae beatae provident fugiat facilis est nobis impedit obcaecati natus itaque error blanditiis dolore animi corporis."
+    },
+    {
+      "id": "3",
+      "nama": "Monica Sofa",
+      "harga": "1100",
+      "gambar": [
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/10/5/3f5b27ee-5f9f-4ef4-a8c2-5d6e9c3694d1.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/10/3/a743bdfd-969d-487d-9447-397fc7d1e587.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/10/3/bbb57f48-2448-4782-b945-e28731ef3f17.jpg"
+      ],
+      "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore modi, consequatur vero sit porro, repudiandae beatae provident fugiat facilis est nobis impedit obcaecati natus itaque error blanditiis dolore animi corporis."
+    },
+    {
+      "id": "4",
+      "nama": "Terra Sofa",
+      "harga": "950",
+      "gambar": [
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/11/4/38986dd4-6d0e-45e0-9bdd-79c1abc0043a.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/5/7/ca34a9a8-68ee-4d51-b1d7-a732ad6c223f.jpg",
+        "https://images.tokopedia.net/img/cache/900/VqbcmM/2023/5/5/4a276bf6-cf2b-4582-8d27-ac06e770a536.png"
+      ],
+      "deskripsi": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore modi, consequatur vero sit porro, repudiandae beatae provident fugiat facilis est nobis impedit obcaecati natus itaque error blanditiis dolore animi corporis."
+    }
+  ]
+}
