@@ -9,7 +9,7 @@ import { editQuantityBarangFromCart, removeBarangFromCart } from '../store/actio
 
 function dataCartIsNotExist() {
     return (
-        <span className='grid place-content-center text-5xl h-[30rem]'>
+        <span className='grid place-content-center text-5xl h-[39rem]'>
             Silakan Belanja Terlebih Dahulu<RiEmotionHappyLine />
         </span>
     )

@@ -8,13 +8,11 @@ const addBarangToCart = (payload) => ({
 const removeBarangFromCart = (payload) => ({
     type: REMOVE_BARANG_FROM_CART,
     payload
-
 });
 
 const editQuantityBarangFromCart = (payload) => ({
     type: EDIT_QUANTITY_BARANG_FROM_CART,
     payload
-
 });
 
 export { addBarangToCart, editQuantityBarangFromCart, removeBarangFromCart };

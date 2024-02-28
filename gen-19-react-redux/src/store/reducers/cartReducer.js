@@ -12,7 +12,7 @@ function isExistId(arrayDataCart, id) {
 }
 
 function addBarang(arrayDataCart, payload) {
-    const obj = { ...payload }; // {payload : mainData}
+    const obj = { ...payload };
     const isExist = isExistId(arrayDataCart, obj.id);
     if (isExist) {
         alert("Produk Ini Sudah Berada Di Cart!!!");
@@ -33,11 +33,15 @@ function removeBarang(arrayDataCart, payload) {
 function quantityBarang(arrayDataCart, payload) {
     const { index, counter } = payload;
     const data = arrayDataCart[index];
-    const stok = 10;
     if ((data.qty >= 1) && (data.qty <= data.stok)) {
-        data.qty = data.qty + counter;
+        if (counter == 1) {
+            data.qty += 1;
+        }
+        else {
+            data.qty -= 1;
+        }
         data.qty = data.qty == 0 ? 1 : data.qty;
-        data.qty = data.qty > data.stok ? data.stok : data.qty;
+        data.qty = data.qty >= data.stok ? data.stok : data.qty;
     }
     return arrayDataCart;
 }
@@ -59,6 +63,7 @@ const cartReducer = (state = arrayDataCart, action) => {
         case EDIT_QUANTITY_BARANG_FROM_CART:
             arrayDataCart = quantityBarang(arrayDataCart, payload);
             return { dataCart: arrayDataCart };
+
         default:
             return state;
     }
