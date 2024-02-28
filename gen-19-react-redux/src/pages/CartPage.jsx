@@ -55,7 +55,7 @@ export default function CartPage() {
                                         <button className='border-2 rounded-lg bg-gray-300 w-7 text-xl hover:bg-gray-500' onClick={() => handleQuantity(index, -1)}>-</button>
                                     </div>
                                     <div className='absolute text-xl bottom-1 right-[15rem]'>
-                                        Harga Total:${(item.harga * item.qty)}
+                                        Harga:${(item.harga * item.qty)}
                                     </div>
                                 </div>
                             </div>
