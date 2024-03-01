@@ -1,14 +1,13 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import checkAuthentications from './checkAuthentications';
 
-
 export default function HasLoggedIn() {
 
-    const { hasLogin } = checkAuthentications();
+    const { hasNotLogin } = checkAuthentications();
 
-    if (hasLogin) {
-        return <Navigate to={"/"} />
+    if (hasNotLogin) {
+        return <Outlet />
     }
 
-    return <Outlet />
+    return <Navigate to={"/"} />
 }

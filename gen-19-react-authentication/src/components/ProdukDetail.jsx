@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { CiHeart, CiShoppingCart } from "react-icons/ci";
 import { useDispatch } from "react-redux";
 import useSWR from "swr";
+import checkAuthentications from "../route/checkAuthentications";
 import { addBarangToCart } from "../store/reducers/cartSlice";
 import Button from "./Button";
 
@@ -15,6 +16,8 @@ function ProdukDetail(props) {
 
     const dispatch = useDispatch();
 
+    const { isRoleCustomer } = checkAuthentications();
+
     const [image, setImage] = useState(mainData?.gambar[0]);
     function setMainImage(newImage) {
         setImage(newImage);
@@ -26,6 +29,10 @@ function ProdukDetail(props) {
 
 
     const handleClickAddToCart = () => {
+        if (!isRoleCustomer) {
+            alert("Role Anda Bukan Customer");
+            return
+        }
         const addBarang = { ...mainData, qty: 1 };
         dispatch(addBarangToCart(addBarang));
     }

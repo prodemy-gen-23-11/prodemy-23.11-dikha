@@ -1,5 +1,3 @@
-
-
 import { Navigate, Outlet } from 'react-router-dom';
 import checkAuthentications from './checkAuthentications';
 

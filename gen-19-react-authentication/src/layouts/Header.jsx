@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
 import { CiSearch, CiShoppingCart } from "react-icons/ci";
 import { SiHomebridge } from "react-icons/si";
-import { useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import HorizontalRule from "../components/HorizontalRule";
 import headernav from "../data/headernav";
 import checkAuthentications from "../route/checkAuthentications";
@@ -14,18 +14,16 @@ function Header() {
 
     const { hasLogin } = checkAuthentications();
 
-    const [username, setUsername] = useState("");
-
     const [profileOpen, setProfileOpen] = useState(true);
-
-    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
+    const username = useSelector((state) => state.auth?.user?.username);
+
     useEffect(() => {
-        setUsername(JSON.parse(localStorage.getItem('user'))?.username);
+        // setUsername();
         setProfileOpen(profileOpen);
-    }, [username, profileOpen]);
+    }, [profileOpen]);
 
     function handleLogout() {
         alert("Logout Berhasil");
@@ -59,11 +57,13 @@ function Header() {
                     <Link to={"/cart"}>
                         <CiShoppingCart />
                     </Link>
+                    <span>|</span>
                     {
-                        !hasLogin ? <Link to={"/login"}> Login </Link> :
+                        !hasLogin ? <Link to={"/login"}> Login/Register </Link> :
                             <div className="relative">
-                                <div className="text-xl ml-2 cursor-pointer select-none" onClick={() => handleSetProfile()}>
-                                    <CgProfile />{username}
+                                <div className="text-xl ml-2 cursor-pointer select-none flex place-items-center gap-x-1" onClick={() => handleSetProfile()}>
+                                    <div><CgProfile /></div>
+                                    <div>{username}</div>
                                 </div>
                                 {
                                     profileOpen ? "" :

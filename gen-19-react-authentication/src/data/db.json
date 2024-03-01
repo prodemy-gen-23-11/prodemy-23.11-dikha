@@ -1,27 +1,27 @@
 {
   "users": [
     {
-      "email": "abc@gmail.com",
-      "password": "$2a$10$zFXwzMcsZqcLCPTwilcXo.4CUWHM3i94449St7r2qIw0Bv5DnLLZ2",
-      "username": "user",
+      "email": "usercustomer@test.com",
+      "password": "$2a$10$87zLJ6eJYEHWU0SpJRsnZ.0gv.5804T./yVdzvRoG09Md9YAq2PR6",
+      "username": "user_customer",
       "role": [
         "ROLE_CUSTOMER"
       ],
       "id": 1
     },
     {
-      "email": "abc@gmai.com",
-      "password": "$2a$10$xMyQ.mTb89gQN01AqMUFAe8SXi9NdtuSGXRGu9nBHaDyy/F7V3aku",
-      "username": "user",
+      "email": "useradmin@test.com",
+      "password": "$2a$10$tLZVhXumXbFFkzcWSIx.EuKtswo0O4FujPPilMMPbRLNEEF97evAC",
+      "username": "user_admin",
       "role": [
         "ROLE_ADMIN"
       ],
       "id": 2
     },
     {
-      "email": "abc@gma.com",
-      "password": "$2a$10$IrinFWGHUuHfHfBZcpqWU.qh2xHh71iuuIGUsOG3d1dV/6/t0W02i",
-      "username": "user",
+      "email": "usersuper@test.com",
+      "password": "$2a$10$ODhRGedIbwwFHj90fOTiz.oZD.lwSzwyaeTXAP9hqdYfuK8uy8UGO",
+      "username": "user_super",
       "role": [
         "ROLE_CUSTOMER",
         "ROLE_ADMIN"
