@@ -32,14 +32,21 @@ function ProdukDetail(props) {
 
 
     const handleClickAddToCart = () => {
-        if (!isRoleCustomer) {
-            alert("Role Anda Bukan Customer");
-            return
-        }
+        // if (!isRoleCustomer) {
+        //     alert("Role Anda Bukan Customer");
+        //     return
+        // }
+
         const addBarang = { ...mainData, qty: qty };
         axiosInstance.post("/cart", addBarang)
-            .then((res) => console.log(res.data))
-            .catch(err => console.log(err))
+            .then((res) => {
+                console.log(res.data)
+                alert("Barang Berhasil Ditambahkan")
+            })
+            .catch(err => {
+                console.log(err)
+                alert("Barang Gagal Ditambahkan")
+            })
         // dispatch(addBarangToCart(addBarang));
     }
 
