@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { RiEmotionHappyLine } from "react-icons/ri";
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../components/Button';
 import ProductCart from '../components/ProductCart';
-import { axiosInstance } from '../data/axios';
-import { editQuantityBarangFromCart, removeBarangFromCart, setBarangFromApi } from '../store/reducers/cartSlice';
+import { DECREMENT, INCREMENT } from '../data/library';
+import { getDataCartFromApi, removeBarangById, setQuantityBarang } from '../store/reducers/cartSlice';
 
 
 function dataCartIsNotExist() {
@@ -15,28 +15,22 @@ function dataCartIsNotExist() {
     )
 }
 
-
 export default function CartPage() {
 
     const dispatch = useDispatch();
 
-    const [products, setProducts] = useState([])
+    const cart = useSelector((state) => state.cart);
+    const { dataCart, error, status } = cart;
 
     useEffect(() => {
-        axiosInstance.get("/cart")
-            .then((res) => {
-                dispatch(setBarangFromApi(res.data))
-                setProducts(res.data)
-            })
-            .catch((err) => console.log(err))
-
+        // axiosInstance.get("/cart")
+        //     .then((res) => {
+        //         // dispatch(setBarangFromApi(res.data))
+        //         // setProducts(res.data)
+        //     })
+        //     .catch((err) => console.log(err))
+        dispatch(getDataCartFromApi());
     }, [])
-
-    const dataCart = useSelector((state) => state.cart);
-
-
-    useEffect(() => {
-    }, [products])
 
     // const fetcher = (url) => axiosInstance.get(url).then((res) => res.data).catch((err) => console.log(err))
     // const { data: dataApi, isLoading } = useSWR("/cart", fetcher);
@@ -48,24 +42,30 @@ export default function CartPage() {
     let totalPrice = 0;
     dataCart?.forEach(item => totalPrice += (item.harga * item.qty));
 
-    function hapusDatacart(index) {
-        dispatch(removeBarangFromCart(index));
+    function hapusDatacart(id) {
+        dispatch(removeBarangById(id));
     }
 
-    function handleQuantity(index, count) {
+    function handleQuantity(item, option) {
+
+        const { id, nama, harga, qty, stok, deskripsi, gambar } = item;
         const sendData = {
-            index: index,
-            counter: count
+            id: id,
+            nama: nama,
+            harga: harga,
+            qty: qty,
+            stok: stok,
+            deskripsi: deskripsi,
+            gambar: gambar,
+            option: option
         }
-        dispatch(editQuantityBarangFromCart(sendData));
+        dispatch(setQuantityBarang(sendData));
     }
 
-
-    const isDataCartExist = ((dataCart == undefined) || (dataCart.length == 0));
     return (
         <div className='min-h-[39rem] pt-10 px-[10rem]'>
             {
-                isDataCartExist ? dataCartIsNotExist() :
+                dataCart.length == 0 ? dataCartIsNotExist() :
                     <div className=' relative flex'>
                         <div className='m-2 h-full w-4/6 flex'>
                             <div className=' w-full'>
@@ -75,11 +75,11 @@ export default function CartPage() {
                                             <div className='relative grid place-items-center place-content-between m-2 border-2 border-red-500 rounded-2xl bg-slate-200'>
                                                 <ProductCart id={item.id} title={item.nama} src={item.gambar[0]} harga={item.harga} qty={item.qty} />
                                                 <div className='absolute bottom-1 right-1'>
-                                                    <Button onClick={() => hapusDatacart(index)}>Hapus</Button>
+                                                    <Button onClick={() => hapusDatacart(item.id)}>Hapus</Button>
                                                 </div>
                                                 <div className='absolute bottom-[0.75rem] left-[11rem]'>
-                                                    <button className='border-2 rounded-lg bg-blue-300 w-7 text-xl hover:bg-blue-500' onClick={() => handleQuantity(index, +1)}>+</button>
-                                                    <button className='border-2 rounded-lg bg-gray-300 w-7 text-xl hover:bg-gray-500' onClick={() => handleQuantity(index, -1)}>-</button>
+                                                    <button className='border-2 rounded-lg bg-blue-300 w-7 text-xl hover:bg-blue-500' onClick={() => handleQuantity(item, INCREMENT)}>+</button>
+                                                    <button className='border-2 rounded-lg bg-gray-300 w-7 text-xl hover:bg-gray-500' onClick={() => handleQuantity(item, DECREMENT)}>-</button>
                                                 </div>
                                                 <div className='absolute text-xl bottom-1 right-[15rem]'>
                                                     Harga:${(item.harga * item.qty)}

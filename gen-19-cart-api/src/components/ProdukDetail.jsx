@@ -28,14 +28,15 @@ function ProdukDetail(props) {
 
     useEffect(() => {
         setImage(mainData?.gambar[0]);
+        setQty(1);
     }, [mainData]);
 
 
     const handleClickAddToCart = () => {
-        // if (!isRoleCustomer) {
-        //     alert("Role Anda Bukan Customer");
-        //     return
-        // }
+        if (!isRoleCustomer) {
+            alert("Role Anda Bukan Customer");
+            return
+        }
 
         const addBarang = { ...mainData, qty: qty };
         axiosInstance.post("/cart", addBarang)

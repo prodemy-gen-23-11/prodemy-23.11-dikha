@@ -1,6 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { axiosInstance } from "../../data/axios";
+import { DECREMENT, FAILED, IDLE, INCREMENT, LOADING, SUCCESSFULL } from "../../data/library";
 
-const initialState = [];
+
+const initialState = {
+    dataCart: [],
+    status: IDLE,
+    error: null
+};
 
 function isExistId(arrayDataCart, id) {
     for (const obj of arrayDataCart) {
@@ -11,66 +18,105 @@ function isExistId(arrayDataCart, id) {
     return false;
 }
 
-function addBarang(arrayDataCart, payload) {
-    const obj = { ...payload };
-    const isExist = isExistId(arrayDataCart, obj.id);
-    if (isExist) {
-        alert("Produk Ini Sudah Berada Di Cart!!!");
-        return arrayDataCart;
+// function addBarang(arrayDataCart, payload) {
+//     const obj = { ...payload };
+//     const isExist = isExistId(arrayDataCart, obj.id);
+//     if (isExist) {
+//         return arrayDataCart;
+//     }
+//     arrayDataCart.push(obj);
+//     return arrayDataCart;
+// }
+
+// function removeBarang(state, payload) {
+//     const id = payload;
+//     let dataCart = current(state.dataCart);
+//     dataCart = dataCart.filter((item) => item.id !== id);
+//     state.dataCart = dataCart;
+// }
+
+function changeQuantityBarang({ option, qty, stok, id, ...data }) {
+    if ((option == INCREMENT) && (qty < stok)) {
+        qty += 1;
     }
-
-    arrayDataCart.push(obj);
-    alert(`Produk ${obj?.nama} Berhasil Ditambahkan!!!`);
-    return arrayDataCart;
-}
-
-function removeBarang(arrayDataCart, payload) {
-    const index = payload;
-    arrayDataCart.splice(index, 1);
-    return arrayDataCart;
-}
-
-function quantityBarang(arrayDataCart, payload) {
-    const { index, counter } = payload;
-    const data = arrayDataCart[index];
-    if ((data.qty >= 1) && (data.qty <= data.stok)) {
-        if (counter == 1) {
-            data.qty += 1;
-        }
-        else {
-            data.qty -= 1;
-        }
-        data.qty = data.qty == 0 ? 1 : data.qty;
-        data.qty = data.qty >= data.stok ? data.stok : data.qty;
+    if ((option == DECREMENT) && (qty > 1)) {
+        qty -= 1;
     }
-    return arrayDataCart;
+    return { ...data, qty: qty, stok: stok, id: id };
 }
 
 function setBarangViaApi(arrayDataCart, payload) {
     arrayDataCart = [...payload];
-    // console.log(arrayDataCart);
-    return arrayDataCart;
+    return [...arrayDataCart];
 }
+
+
+export const getDataCartFromApi = createAsyncThunk('/getAllCart',
+    async (thunkAPI) => {
+        try {
+            const response = await axiosInstance.get("/cart")
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue({ error: err.message })
+        }
+    }
+)
+
+export const removeBarangById = createAsyncThunk('/deleteBarangById',
+    async (id) => {
+        try {
+            await axiosInstance.delete(`/cart/${id}`)
+            const response = await axiosInstance.get("/cart")
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue({ error: err.message })
+        }
+    }
+)
+
+export const setQuantityBarang = createAsyncThunk('/setQuantity',
+    async (data) => {
+        const sendData = changeQuantityBarang(data);
+        console.log(sendData);
+        const id = sendData.id;
+        try {
+            await axiosInstance.put(`/cart/${id}`, sendData)
+            const response = await axiosInstance.get("/cart")
+            return response.data;
+        } catch (error) {
+            return thunkAPI.rejectWithValue({ error: err.message })
+        }
+    }
+)
+
 
 const cartSlice = createSlice({
     name: "cart",
-    initialState: [...initialState],
-    reducers: {
-        addBarangToCart: (arrayDataCart, { payload }) => {
-            addBarang(arrayDataCart, payload);
-        },
-        removeBarangFromCart: (arrayDataCart, { payload }) => {
-            removeBarang(arrayDataCart, payload);
-        },
-        editQuantityBarangFromCart: (arrayDataCart, { payload }) => {
-            quantityBarang(arrayDataCart, payload);
-        },
-        setBarangFromApi: (arrayDataCart, { payload }) => {
-            setBarangViaApi(arrayDataCart, payload);
-        }
+    initialState: { ...initialState },
+    reducers: {},
+    extraReducers: builder => {
+        builder
+            .addCase(getDataCartFromApi.pending, (state, action) => {
+                state.status = LOADING;
+            })
+            .addCase(getDataCartFromApi.fulfilled, (state, action) => {
+                state.status = SUCCESSFULL;
+                state.dataCart = setBarangViaApi([...state.dataCart], action.payload);
+                state.status = IDLE;
+            })
+            .addCase(getDataCartFromApi.rejected, (state, action) => {
+                state.status = FAILED;
+                state.error = action.error.message;
+            })
+            .addCase(removeBarangById.fulfilled, (state, action) => {
+                state.dataCart = action.payload;
+            })
+            .addCase(setQuantityBarang.fulfilled, (state, action) => {
+                state.dataCart = action.payload;
+            })
     }
 })
 
-export const { addBarangToCart, removeBarangFromCart, editQuantityBarangFromCart, setBarangFromApi } = cartSlice.actions;
+export const { removeBarangFromCart, editQuantityBarangFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
