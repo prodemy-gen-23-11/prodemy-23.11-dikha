@@ -18,6 +18,7 @@ function ProdukDetail(props) {
     const dispatch = useDispatch();
 
     const userId = useSelector((state) => state.auth?.user.id);
+    const userCart = useSelector((state) => state.cart?.userCart);
 
     const { isRoleCustomer } = checkAuthentications();
 
@@ -41,8 +42,9 @@ function ProdukDetail(props) {
         }
 
         const addBarang = {
-            id: userId,
-            barang: { ...mainData, qty: qty }
+            userId: userId,
+            addBarang: { ...mainData, qty: qty },
+            userCart
         };
         dispatch(addBarangToCart(addBarang));
     }

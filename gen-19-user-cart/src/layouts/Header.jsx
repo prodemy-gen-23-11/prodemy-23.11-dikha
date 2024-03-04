@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { CgProfile } from "react-icons/cg";
-import { CiSearch, CiShoppingCart } from "react-icons/ci";
+import { CiShoppingCart } from "react-icons/ci";
 import { SiHomebridge } from "react-icons/si";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -8,6 +8,8 @@ import HorizontalRule from "../components/HorizontalRule";
 import headernav from "../data/headernav";
 import checkAuthentications from "../route/checkAuthentications";
 import { resetAuthData } from "../store/reducers/authSlice";
+import { getDataCartFromApi } from "../store/reducers/cartSlice";
+
 
 
 function Header() {
@@ -18,12 +20,16 @@ function Header() {
 
     const dispatch = useDispatch();
 
-    const username = useSelector((state) => state.auth?.user?.username);
+    const { username, id } = useSelector((state) => state.auth?.user);
 
     useEffect(() => {
         // setUsername();
         setProfileOpen(profileOpen);
     }, [profileOpen]);
+
+    useEffect(() => {
+        dispatch(getDataCartFromApi(id));
+    }, [])
 
     function handleLogout() {
         alert("Logout Berhasil");
@@ -51,12 +57,11 @@ function Header() {
                     ))}
                 </div>
                 <div className="flex items-center gap-x-1">
-                    <Link to={"#"}>
-                        <CiSearch />
-                    </Link>
-                    <Link to={"/cart"}>
-                        <CiShoppingCart />
-                    </Link>
+                    <div className="relative">
+                        <Link to={"/cart"}>
+                            <CiShoppingCart className=" text-5xl" />
+                        </Link>
+                    </div>
                     <span>|</span>
                     {
                         !hasLogin ? <Link to={"/login"}> Login/Register </Link> :

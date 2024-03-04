@@ -21,10 +21,6 @@ export default function LoginPage() {
         resolver: yupResolver(schema)
     });
 
-    // useEffect(() => {
-    //     alert("Pertama Kali Dirender!");
-    // }, [])
-
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

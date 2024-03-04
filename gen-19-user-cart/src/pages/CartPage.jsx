@@ -21,7 +21,7 @@ export default function CartPage() {
 
     const { status, userCart } = useSelector((state) => state.cart);
     const userId = useSelector((state) => state.auth?.user.id);
-    const { dataCart } = userCart;
+    const dataCart = userCart;
 
     useEffect(() => {
         dispatch(getDataCartFromApi(userId));
@@ -51,13 +51,12 @@ export default function CartPage() {
                 qty: qty,
                 stok: stok,
                 option: option
-            }
+            },
+            userCart
         }
         dispatch(setQuantityBarang(sendData));
     }
 
-    // console.log(status);
-    console.log(dataCart);
     return (
         <div className='min-h-[39rem] pt-10 px-[10rem]'>
             {

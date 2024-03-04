@@ -5,21 +5,12 @@ import { DECREMENT, FAILED, IDLE, INCREMENT, LOADING, SUCCESSFULL } from "../../
 
 const initialState = {
     userId: "",
-    userCart: {
-        dataCart: []
-    },
+    userCart: [],
     status: IDLE,
     error: null
 };
 
-function isExistId(arrayDataCart, id) {
-    for (const obj of arrayDataCart) {
-        if (obj.id == id) {
-            return true;
-        }
-    }
-    return false;
-}
+
 
 function changeQuantityBarang({ option, qty, stok, id, ...data }) {
     if ((option == INCREMENT) && (qty < stok)) {
@@ -36,44 +27,44 @@ function setBarangViaApi(arrayDataCart, payload) {
     return [...arrayDataCart];
 }
 
-function addBarang(dataBase, barangBaru) {
-    const { dataCart } = dataBase;
-    const idExist = isExistId(dataCart, barangBaru.id)
-    if (!idExist) {
-        dataCart.push(barangBaru);
-        alert("Barang Berhasil Ditambah");
+function isExistId(userCart, id) {
+    for (const obj of userCart) {
+        if (obj.id == id) {
+            return true;
+        }
     }
-    else {
-        alert("Barang Sudah Ada Di Keranjang");
-    }
-    axiosInstance.put(`/cart/${dataBase.id}`, dataBase);
+    return false;
 }
 
+function addBarangToUserCart(userCart, barangBaru) {
+    const idExist = isExistId(userCart, barangBaru.id)
+    if (!idExist) {
+        userCart = [...userCart, { ...barangBaru }];
+        return userCart;
+    }
+    else {
+        throw new Error("Barang Sudah Berada di Keranjang");
+    }
+}
 
 export const addBarangToCart = createAsyncThunk('/addBarangToCart',
     async (payload) => {
-        const { id, barang } = payload;
+        const { userId, addBarang, userCart } = payload;
         try {
-            await axiosInstance.get(`/cart/${id}`);
-        } catch (error) {
-            if (error.response?.status == 404) {
-                const newForm = {
-                    id: id,
-                    dataCart: []
-                }
-                await axiosInstance.post(`/cart`, newForm);
-            }
-        } finally {
-            const { data } = await axiosInstance.get(`/cart/${id}`);
+            const dataCart = addBarangToUserCart(userCart, addBarang);
             const sendData = {
-                dataBase: data,
-                barangBaru: barang
+                id: userId,
+                dataCart: dataCart
             }
-            return sendData;
+            await axiosInstance.put(`/cart/${sendData.id}`, sendData);
+            alert("Barang berhasil Ditambahkan");
+            return dataCart;
+        } catch (error) {
+            alert(error);
         }
+
     }
 )
-
 
 export const getDataCartFromApi = createAsyncThunk('/getAllCart',
     async (userId) => {
@@ -86,14 +77,17 @@ export const getDataCartFromApi = createAsyncThunk('/getAllCart',
     }
 )
 
+
 export const removeBarangById = createAsyncThunk('/deleteBarangById',
     async (data) => {
         const { userId, dataCart } = data;
         try {
-            await axiosInstance.put(`/cart/${userId}`, { dataCart: dataCart })
-            const response = await axiosInstance.get(`/cart/${userId}`)
-            console.log(response.data?.dataCart)
-            return response.data?.dataCart;
+            const sendData = {
+                id: userId,
+                dataCart: dataCart
+            }
+            await axiosInstance.put(`/cart/${userId}`, sendData)
+            return dataCart;
         } catch (error) {
             return thunkAPI.rejectWithValue({ error: err.message })
         }
@@ -102,19 +96,16 @@ export const removeBarangById = createAsyncThunk('/deleteBarangById',
 
 export const setQuantityBarang = createAsyncThunk('/setQuantity',
     async (payload) => {
-        const { userId, barang } = payload
+        const { userId, barang, userCart } = payload
         const newQuantity = changeQuantityBarang(barang);
         try {
-            const { data } = await axiosInstance.get(`/cart/${userId}`)
-            const { id, dataCart } = data;
-            const newDataCart = dataCart.map(item => item.id == newQuantity.id ? { ...item, ...newQuantity } : { ...item });
+            const newDataCart = userCart.map(item => item.id == newQuantity.id ? { ...item, ...newQuantity } : { ...item });
             const sendData = {
                 id: userId,
                 dataCart: newDataCart
             }
-            await axiosInstance.put(`/cart/${userId}`, sendData)
-            const response = await axiosInstance.get(`/cart/${userId}`);
-            return response.data?.dataCart
+            await axiosInstance.put(`/cart/${userId}`, sendData);
+            return newDataCart;
         } catch (error) {
             return thunkAPI.rejectWithValue({ error: err.message })
         }
@@ -133,7 +124,8 @@ const cartSlice = createSlice({
             })
             .addCase(getDataCartFromApi.fulfilled, (state, action) => {
                 state.status = SUCCESSFULL;
-                state.userCart.dataCart = setBarangViaApi([...state.userCart.dataCart], action.payload?.dataCart);
+                const dataCart = action.payload?.dataCart;
+                state.userCart = setBarangViaApi([...state.userCart], dataCart);
                 state.status = IDLE;
             })
             .addCase(getDataCartFromApi.rejected, (state, action) => {
@@ -141,21 +133,20 @@ const cartSlice = createSlice({
                 state.error = action.error.message;
             })
             .addCase(addBarangToCart.fulfilled, (state, action) => {
-                const { dataBase, barangBaru } = action.payload;
-                addBarang(dataBase, barangBaru);
+                state.userCart = action.payload;
             })
             .addCase(removeBarangById.pending, (state, action) => {
                 state.status = LOADING;
             })
             .addCase(removeBarangById.fulfilled, (state, action) => {
-                state.userCart.dataCart = action.payload;
+                state.userCart = action.payload;
                 state.status = SUCCESSFULL;
             })
             .addCase(setQuantityBarang.pending, (state, action) => {
                 state.status = LOADING;
             })
             .addCase(setQuantityBarang.fulfilled, (state, action) => {
-                state.userCart.dataCart = action.payload;
+                state.userCart = action.payload;
                 state.status = SUCCESSFULL;
             })
     }
