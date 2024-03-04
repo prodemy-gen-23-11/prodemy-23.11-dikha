@@ -9,30 +9,13 @@ const initialState = {
     error: null
 };
 
-function isExistId(arrayDataCart, id) {
-    for (const obj of arrayDataCart) {
-        if (obj.id == id) {
-            return true;
-        }
-    }
-    return false;
-}
-
-// function addBarang(arrayDataCart, payload) {
-//     const obj = { ...payload };
-//     const isExist = isExistId(arrayDataCart, obj.id);
-//     if (isExist) {
-//         return arrayDataCart;
+// function isExistId(arrayDataCart, id) {
+//     for (const obj of arrayDataCart) {
+//         if (obj.id == id) {
+//             return true;
+//         }
 //     }
-//     arrayDataCart.push(obj);
-//     return arrayDataCart;
-// }
-
-// function removeBarang(state, payload) {
-//     const id = payload;
-//     let dataCart = current(state.dataCart);
-//     dataCart = dataCart.filter((item) => item.id !== id);
-//     state.dataCart = dataCart;
+//     return false;
 // }
 
 function changeQuantityBarang({ option, qty, stok, id, ...data }) {
@@ -77,7 +60,6 @@ export const removeBarangById = createAsyncThunk('/deleteBarangById',
 export const setQuantityBarang = createAsyncThunk('/setQuantity',
     async (data) => {
         const sendData = changeQuantityBarang(data);
-        console.log(sendData);
         const id = sendData.id;
         try {
             await axiosInstance.put(`/cart/${id}`, sendData)
